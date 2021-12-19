@@ -8,6 +8,7 @@ def conf():
 
     def checkIn():
         if in_projectName.get() and '/' in in_projectPath.get():
+            out_submitFormError.configure(text='true')
             root.quit()
             return {'projectName': in_projectName.get(), 'projectPath': in_projectPath.get()}
         else:
@@ -22,7 +23,6 @@ def conf():
                 errorMessage += "it missing '/' in project path"
 
             out_submitFormError.configure(text=errorMessage)
-
 
     backgroundPage = '#2F3136'
 
@@ -45,3 +45,8 @@ def conf():
     ], 13)
 
     root.mainloop()
+
+    a = True
+    while a:
+        if out_submitFormError.cget('text') == 'true':
+            return checkIn()
