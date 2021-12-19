@@ -1,5 +1,6 @@
 import os
+import config_project
 
 
 if __name__ == '__main__':
-    project_name = input('project name: ')
+    info1 = config_project.conf()
