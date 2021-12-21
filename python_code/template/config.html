@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>config project</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+</head>
+<body>
+
+    <h1 id="title">config project</h1>
+
+    <form method="post" class="allPage">
+
+        <label id="label">Project Name</label>
+
+        <input type="text" name="projectName" value="{{ request.form['projectName'] }}" id="inputEl">
+
+        <label id="label">Project Path</label>
+
+        <input type="week" name="projectPath" value="{{ request.form['projectPath'] }}" id="inputEl">
+
+        <label id="label">Final Video Name</label>
+
+        <input type="text" name="videoName" value="{{ request.form['videoName'] }}" id="inputEl">
+
+        <label id="label">Video FPS</label>
+
+        <input type="number" max="120" min="1" name="videoFps" value="{{ request.form['videoFps'] }}" id="inputEl" placeholder="[1 to 120]">
+
+        {%if not request.form['projectName']%}
+            <label id="errorMessage">it missing project name</label>
+
+        {%elif '/' not in request.form['projectPath']%}
+            <label id="errorMessage">it missing project path</label>
+
+        {%elif not request.form['videoName']%}
+            <label id="errorMessage">it missing video name</label>
+
+        {%elif not request.form['videoFps']%}
+            <label id="errorMessage">it missing video FPS</label>
+
+        {%else%}
+            <label id="errorMessage" style="color: #AAFF46;">this project is valid</label>
+
+        {%endif%}
+
+        <input type="submit" name="sub" value="Create video" id="btn-form">
+
+    </form>
+
+</body>
+</html>

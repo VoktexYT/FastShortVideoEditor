@@ -1,0 +1,105 @@
+/*change style of body*/
+body {
+	background-color: #2F3136;
+}
+
+/*change style of #title*/
+#title {
+	color: #A4A6A9;
+	font-family: monospace;
+	font-size: 40px;
+	text-align: center;
+}
+
+/*change style of #btn*/
+#btn {
+	margin-left: 25%;
+	margin-right: 25%;
+	color: #A4A6A9;
+	background-color: #2F3136;
+	outline: none;
+	border: 2px solid #202225;
+	width: 50%;
+	height: 50px;
+	font-size: 20px;
+	cursor: pointer;
+	font-family: monospace;
+}
+
+/*change style of '#btn' if event 'hover:' is True*/
+#btn:hover {
+	color: white;
+	background-color: #373a41;
+}
+
+#nav {
+	position: absolute;
+	color: #A4A6A9;
+	font-family: monospace;
+	font-size: 20px;
+	left: 50px;
+}
+
+#canva {
+	margin-top: 40px;
+}
+
+#canva:hover, #reload:hover {
+	color: white;
+	cursor: pointer;
+}
+
+.allPage {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+#label {
+	font-weight: bold;
+	color: #A4A6A9;
+	font-family: monospace;
+	font-size: 25px;
+	margin-top: 30px;
+}
+
+#btn-form {
+	margin-top: 40px;
+	height: 50px;
+	background-color: #2F3136;
+	border: 2px #202225 solid;
+	color: #A4A6A9;
+
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
+	font-size: 20px;
+	font-family: monospace;
+}
+
+#btn-form:hover {
+	color: white;
+	cursor: pointer;
+}
+
+#inputEl {
+	width: 50%;
+	margin-left: 25%;
+	margin-right: 25%;
+	margin-top: 10px;
+
+	outline: None;
+	background-color: #202225;
+	color: #A4A6A9;
+	border: None;
+	height: 40px;
+	font-size: 20px;
+}
+
+#errorMessage {
+	font-weight: bold;
+	font-family: monospace;
+	font-size: 20px;
+	margin-top: 30px;
+	color: #FF466B;
+}

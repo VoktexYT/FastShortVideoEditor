@@ -1,16 +1,18 @@
-from flask import Flask
-
-app = Flask(__name__)
-
-
-@app.route('/')
-def home():
-    return "<p>Home page</p>"
+from flask import Flask, render_template, request, url_for, flash, redirect
+import os
 
 
-@app.route('/config_video')
-def conf():
-    return "<h1>config</h1><p>salut</p>"
+def confVideo():
 
+    TEMPLATE_DIR = os.path.abspath('template')
+    STATIC_DIR = os.path.abspath('static')
+    app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 
-app.run(debug=True)
+    @app.route('/config-project/', methods=['GET', 'POST'])
+    def conf():
+        #print(request.form['projectName'])
+        return render_template("config.html")
+
+    app.run(debug=True)
+
+confVideo()
