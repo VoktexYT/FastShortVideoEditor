@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import os
 import webbrowser
+import movie
 
 
 if __name__ == '__main__':
@@ -21,6 +22,7 @@ if __name__ == '__main__':
 
     @app.route('/end/')
     def conf3():
+        movie.createFilms(all_video_order, pathProject, VIDEO_NAME, VIDEO_FPS)
         return render_template('end.html')
 
     @app.route('/config-video/', methods=['GET', 'POST'])
@@ -46,8 +48,6 @@ if __name__ == '__main__':
                     all_video_order.append(value)
                     all_videoPath_order.append(pathProject + '/Video/' + str(value))
 
-                print(all_video_order)
-                print(all_videoPath_order)
                 return redirect('/end')
 
             return render_template('index.html', all_video=all_video, all_video_path=all_video_path, Error=ERROR)
