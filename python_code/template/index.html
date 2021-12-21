@@ -12,11 +12,11 @@
 	<form method="post" class="pageForm">
 		{%for x in range(all_video|length)%}
 
-			<div class="videoBox">
+			<div class="videoBox" style="background-color: {{color[x]}};">
 
 				<div id="textVideoBox">{{all_video[x]}}</div> 
 
-				<input type="number" name="{{all_video[x]}}" id="numBox" min="1" max="{{all_video|length}}" value="{{all_video['x']}}">
+				<input type="number" name="{{all_video[x]}}" id="numBox" min="1" max="{{all_video|length}}" value="{{all_video['x']}}" style="border-color: {{color[x]}};">
 
 			</div>
 

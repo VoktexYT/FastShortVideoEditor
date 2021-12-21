@@ -25,6 +25,7 @@ body {
 	cursor: pointer;
 	font-family: monospace;
 	transition: 0.3s;
+	margin-top: 40px;
 }
 
 /*change style of '#btn' if event 'hover:' is True*/

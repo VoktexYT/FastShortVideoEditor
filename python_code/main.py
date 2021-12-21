@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect
 import os
 import webbrowser
 import movie
+import random
 
 
 if __name__ == '__main__':
@@ -27,6 +28,9 @@ if __name__ == '__main__':
 
     @app.route('/config-video/', methods=['GET', 'POST'])
     def conf2():
+        all_color = ['#2a9d8f', '#e9c46a', '#e76f51']
+        colors = [all_color[random.randint(0, 2)] for x in range(len(all_video))]
+
         if request.form:
             all_number = []
             inverse_video = {}
@@ -50,9 +54,9 @@ if __name__ == '__main__':
 
                 return redirect('/end')
 
-            return render_template('index.html', all_video=all_video, all_video_path=all_video_path, Error=ERROR)
+            return render_template('index.html', all_video=all_video, all_video_path=all_video_path, Error=ERROR, color=colors)
         else:
-            return render_template('index.html', all_video=all_video, all_video_path=all_video_path)
+            return render_template('index.html', all_video=all_video, all_video_path=all_video_path, color=colors)
 
 
     @app.route('/config-project/', methods=['GET', 'POST'])
