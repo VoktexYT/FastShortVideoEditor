@@ -1,23 +1,103 @@
+from flask import Flask, render_template, request, redirect
 import os
-import config_video
+import webbrowser
 
 
 if __name__ == '__main__':
-    INFO = config_video.confVideo()
+    webbrowser.open('http://127.0.0.1:5000/config-project/')
+    TEMPLATE_DIR = os.path.abspath('template')
+    STATIC_DIR = os.path.abspath('static')
+    app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 
-    if INFO['projectPath'][-1] != '/':
-        INFO['projectPath'] = str(INFO['projectPath'])+'/'
+    all_video = []
+    all_video_path = []
+    pathProject = ''
 
-    os.chdir(INFO['projectPath'])
-    os.mkdir(INFO['projectName'])
-    os.chdir(INFO['projectPath']+INFO['projectName']+'/')
-    os.mkdir('Video')
-    os.chdir('Video')
+    all_video_order = []
+    all_videoPath_order = []
+    VIDEO_NAME = ''
+    VIDEO_FPS = ''
 
-    input("Click if all video are placed...")
 
-    video_path = []
-    video_name = os.listdir(INFO['projectPath'] + INFO['projectName'] + '/Video/')
+    @app.route('/end/')
+    def conf3():
+        return render_template('end.html')
 
-    for video in video_name:
-        video_path.append(INFO['projectPath'] + INFO['projectName'] + '/Video/'+str(video))
+    @app.route('/config-video/', methods=['GET', 'POST'])
+    def conf2():
+        if request.form:
+            all_number = []
+            inverse_video = {}
+            ERROR = False
+
+            for v in all_video:
+                inverse_video[request.form[v]] = v
+                all_number.append(request.form[v])
+
+            all_number.sort()
+
+            if len(set(all_number)) != len(all_number):
+                ERROR = True
+                print('error')
+            else:
+                ERROR = False
+                for num in all_number:
+                    value = inverse_video.get(num)
+                    all_video_order.append(value)
+                    all_videoPath_order.append(pathProject + '/Video/' + str(value))
+
+                print(all_video_order)
+                print(all_videoPath_order)
+                return redirect('/end')
+
+            return render_template('index.html', all_video=all_video, all_video_path=all_video_path, Error=ERROR)
+        else:
+            return render_template('index.html', all_video=all_video, all_video_path=all_video_path)
+
+
+    @app.route('/config-project/', methods=['GET', 'POST'])
+    def conf():
+        if request.form:
+
+            if request.form['projectName'] and '/' in request.form['projectPath'] and request.form['videoName'] and request.form['videoFps']:
+                projectName = str(request.form['projectName'])
+
+                if str(request.form['projectPath'][-1]) != '/':
+                    projectPath = str(request.form['projectPath']) + '/'
+                else:
+                    projectPath = str(request.form['projectPath'])
+
+                global VIDEO_NAME, VIDEO_FPS
+                VIDEO_NAME = str(request.form['videoName'])
+                VIDEO_FPS = str(request.form['videoFps'])
+
+                os.chdir(projectPath)
+                try:
+                    os.mkdir(projectName)
+                    os.chdir(projectPath + projectName + '/')
+                    os.mkdir('Video')
+                    os.chdir('Video')
+                except FileExistsError:
+                    os.chdir(projectPath + projectName + '/')
+                    os.chdir('Video')
+
+                input("Click if all video are placed...")
+
+                video_name = os.listdir(projectPath + projectName + '/Video/')
+
+                for video in video_name:
+                    all_video.append(video)
+                    all_video_path.append(projectPath + projectName + '/Video/' + str(video))
+
+                global pathProject
+                pathProject = projectPath+projectName
+                return redirect('/config-video')
+            else:
+                pathProject = ''
+                pass
+
+        return render_template("config.html")
+
+
+    app.run(debug=True)
+

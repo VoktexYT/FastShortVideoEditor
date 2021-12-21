@@ -24,6 +24,7 @@ body {
 	font-size: 20px;
 	cursor: pointer;
 	font-family: monospace;
+	transition: 0.3s;
 }
 
 /*change style of '#btn' if event 'hover:' is True*/
@@ -44,7 +45,7 @@ body {
 	margin-top: 40px;
 }
 
-#canva:hover, #reload:hover {
+#canva:hover {
 	color: white;
 	cursor: pointer;
 }
@@ -75,6 +76,7 @@ body {
 	margin-right: 10%;
 	font-size: 20px;
 	font-family: monospace;
+	transition: 0.3s;
 }
 
 #btn-form:hover {
@@ -102,4 +104,48 @@ body {
 	font-size: 20px;
 	margin-top: 30px;
 	color: #FF466B;
+}
+
+.videoBox {
+	display: flex;
+	justify-content: space-between;
+	width: 50%;
+	margin-left: 25%;
+	margin-right: 25%;
+	height: 50px;
+	text-align: center;
+	margin-bottom: 10px;
+	border-radius: 20px;
+	line-height: 50px;
+	color: #2F3136;
+	font-family: monospace;
+	font-size: 23px;
+	cursor: pointer;
+	/*background-color: #2A9D8F;*/
+	/*background-color: #E9C46A;*/
+	/*background-color: #E76F51;*/
+	background-color: #264653;
+	transition: 0.3s;
+}
+
+#textVideoBox {
+	margin-left: 20px;
+}
+
+.videoBox:hover {
+	box-shadow: 2px 5px 3px #232426;
+	color: white;
+}
+
+#numBox {
+	cursor: pointer;
+	outline: None;
+	width: 30%;
+	border: 3px #264653 solid;
+	border-radius: 20px;
+	background-color: #2F3136;
+	font-size: 20px;
+	color: #A4A6A9;
+	appearance: textfield;
+	text-align: center;
 }

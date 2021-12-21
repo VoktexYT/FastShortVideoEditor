@@ -9,20 +9,24 @@
 <body>
 	<h1 id='title' class=''>FSV web editor</h1>
 
-	<div id="nav">
-		<div id="reload">Reload</div>
-		<div id="canva">Create canva</div>
-	</div>
+	<form method="post" class="pageForm">
+		{%for x in range(all_video|length)%}
 
-	<div class="allVideo">
-		{%for x, value in enumerate(videoName)%}
-			<div id="video{{x}}">{{value}}</div>
+			<div class="videoBox">
+
+				<div id="textVideoBox">{{all_video[x]}}</div> 
+
+				<input type="number" name="{{all_video[x]}}" id="numBox" min="1" max="{{all_video|length}}" value="{{all_video['x']}}">
+
+			</div>
+
 		{%endfor%}
-	</div>
+		<input type="submit" id='btn' name='sub' value="Submit Video">
 
-	<button id='btn' class='' name=''>
-		Submit Video
-	</button>
+		{% if Error %}
+			<div id="errorMessage" style="text-align: center;">[SyntaxError]: it cannot have the same number for several videos</div>
+		{% endif %}
+	</form>
 
 	<script type="text/javascript" src="../static/script.js"></script>
 </body>
