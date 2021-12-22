@@ -4,14 +4,36 @@ import webbrowser
 import movie
 import random
 import re
+import cv2
+import time
 
 
 def sortVideo(videos: list):
-    b = [re.findall('[0-9]+', el.split('.')[0])[0] for el in videos]
+    video = []
+    for v in videos:
+        if '/' in v:
+            video.append(v.split('/')[-1])
+        else:
+            video.append(v)
+    b = [re.findall('[0-9]+', el.split('.')[0])[0] for el in video]
     result = dict(zip(b, videos))
     b.sort()
     return [result.get(el2) for el2 in b]
 
+
+def pickFistFrame(VIDEO: list):
+    count = 0
+    pwd = "/home/guertinu/CODE/Python/FSV_editor/python_code/static/"
+    for v in VIDEO:
+        vidcap = cv2.VideoCapture(v)
+        if not vidcap.isOpened():
+            print('error dans l ouverture du fichier')
+        elif vidcap.isOpened():
+            print(f'fichier {count} ouvert')
+            success, image = vidcap.read()
+            cv2.imwrite(pwd+"frame%d.jpg" % count, image)
+            url_forTemplate.append(f"frame{count}.jpg")
+        count += 1
 
 if __name__ == '__main__':
     webbrowser.open('http://127.0.0.1:5000/config-project/')
@@ -28,6 +50,8 @@ if __name__ == '__main__':
     VIDEO_NAME = ''
     VIDEO_FPS = ''
 
+    url_forTemplate = []
+
 
     @app.route('/end/')
     def conf3():
@@ -36,6 +60,9 @@ if __name__ == '__main__':
 
     @app.route('/config-video/', methods=['GET', 'POST'])
     def conf2():
+
+        pickFistFrame(sortVideo(all_video_path))
+
         all_color = ['#2a9d8f', '#e9c46a', '#e76f51']
         colors = [all_color[random.randint(0, 2)] for x in range(len(all_video))]
 
@@ -62,15 +89,20 @@ if __name__ == '__main__':
 
                 return redirect('/end')
 
-            return render_template('index.html', all_video=sortVideo(all_video), all_video_path=all_video_path, Error=ERROR, color=colors)
+            return render_template('index.html', all_video=sortVideo(all_video), all_video_path=all_video_path, Error=ERROR, color=colors, urlFor=url_forTemplate)
         else:
-            return render_template('index.html', all_video=sortVideo(all_video), all_video_path=all_video_path, color=colors)
+            return render_template('index.html', all_video=sortVideo(all_video), all_video_path=all_video_path, color=colors, urlFor=url_forTemplate)
 
 
     @app.route('/config-project/', methods=['GET', 'POST'])
     def conf():
-        if request.form:
+        folder = (r'static/')
+        file = os.listdir(folder)
+        for imageJPG in file:
+            if imageJPG.endswith('.jpg'):
+                os.remove("static/"+imageJPG)
 
+        if request.form:
             if request.form['projectName'] and '/' in request.form['projectPath'] and request.form['videoName'] and request.form['videoFps']:
                 projectName = str(request.form['projectName'])
 

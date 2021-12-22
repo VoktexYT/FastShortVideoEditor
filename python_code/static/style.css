@@ -150,3 +150,12 @@ body {
 	appearance: textfield;
 	text-align: center;
 }
+
+#imgFrameVideo {
+	width: 70px;
+	height: 40px;
+	margin-top: 5px;
+	margin-right: 300px;
+	border-radius: 10px;
+	opacity: 0.9;
+}
