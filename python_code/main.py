@@ -5,7 +5,6 @@ import movie
 import random
 import re
 import cv2
-import time
 
 
 def sortVideo(videos: list):
@@ -15,7 +14,8 @@ def sortVideo(videos: list):
             video.append(v.split('/')[-1])
         else:
             video.append(v)
-    b = [re.findall('[0-9]+', el.split('.')[0])[0] for el in video]
+
+    b = list(map(int, [re.findall('[0-9]+', el.split('.')[0])[0] for el in video]))
     result = dict(zip(b, videos))
     b.sort()
     return [result.get(el2) for el2 in b]
@@ -29,11 +29,11 @@ def pickFistFrame(VIDEO: list):
         if not vidcap.isOpened():
             print('error dans l ouverture du fichier')
         elif vidcap.isOpened():
-            print(f'fichier {count} ouvert')
             success, image = vidcap.read()
             cv2.imwrite(pwd+"frame%d.jpg" % count, image)
             url_forTemplate.append(f"frame{count}.jpg")
         count += 1
+
 
 if __name__ == '__main__':
     webbrowser.open('http://127.0.0.1:5000/config-project/')

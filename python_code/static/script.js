@@ -1,3 +1,3 @@
 function display() {
-	alert('is click !')
+	//alert('is click !')
 }
