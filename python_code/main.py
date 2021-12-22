@@ -3,6 +3,14 @@ import os
 import webbrowser
 import movie
 import random
+import re
+
+
+def sortVideo(videos: list):
+    b = [re.findall('[0-9]+', el.split('.')[0])[0] for el in videos]
+    result = dict(zip(b, videos))
+    b.sort()
+    return [result.get(el2) for el2 in b]
 
 
 if __name__ == '__main__':
@@ -23,7 +31,7 @@ if __name__ == '__main__':
 
     @app.route('/end/')
     def conf3():
-        movie.createFilms(all_video_order, pathProject, VIDEO_NAME, VIDEO_FPS)
+        movie.createFilms(sortVideo(all_video_order), pathProject, VIDEO_NAME, VIDEO_FPS)
         return render_template('end.html')
 
     @app.route('/config-video/', methods=['GET', 'POST'])
@@ -54,9 +62,9 @@ if __name__ == '__main__':
 
                 return redirect('/end')
 
-            return render_template('index.html', all_video=all_video, all_video_path=all_video_path, Error=ERROR, color=colors)
+            return render_template('index.html', all_video=sortVideo(all_video), all_video_path=all_video_path, Error=ERROR, color=colors)
         else:
-            return render_template('index.html', all_video=all_video, all_video_path=all_video_path, color=colors)
+            return render_template('index.html', all_video=sortVideo(all_video), all_video_path=all_video_path, color=colors)
 
 
     @app.route('/config-project/', methods=['GET', 'POST'])
