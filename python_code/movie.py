@@ -3,20 +3,15 @@ from moviepy.editor import *
 
 
 def createFilms(all_video, project_path, video_name, video_FPS):
-    video_clip_stock = []
-    video_clip_duration = []
-    video_clip = []
-    i = 0
 
-    for video in all_video:
-        video_clip_stock.append(video)
-        video_clip_duration.append(VideoFileClip(video_clip_stock[i]).duration)
-        i += 1
+    # stock video duration
+    video_clip_duration = [VideoFileClip(all_video[i]).duration for i, val in enumerate(all_video)]
 
-    i = 0
-    for videoTime in video_clip_duration:
-        video_clip.append(VideoFileClip(video_clip_stock[i]).subclip(0, videoTime))
-        i += 1
+    # stock video
+    video_clip = [VideoFileClip(all_video[i]).subclip(0, videoTime) for i, videoTime in enumerate(video_clip_duration)]
 
+    # stock concatenate all video 'video_clip'
     final_clip = concatenate_videoclips(video_clip)
+
+    # upload video in project
     final_clip.write_videofile(project_path+'/'+video_name+".mp4", fps=int(video_FPS))
