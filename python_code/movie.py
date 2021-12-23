@@ -1,12 +1,8 @@
+# import module for assembly the video
 from moviepy.editor import *
 
 
 def createFilms(all_video, project_path, video_name, video_FPS):
-    print('all video:', all_video)
-    print('project path:', project_path)
-    print('video name:', video_name)
-    print('video fps:', video_FPS)
-
     video_clip_stock = []
     video_clip_duration = []
     video_clip = []
