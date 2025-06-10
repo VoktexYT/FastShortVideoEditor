@@ -1,2 +1,2 @@
-# FSV_editor
-the fsv editor is the assambly video make with python for my youtube chain
+# FSV Project
+This is a mini web app video maker. With this editor, you can take your videos and assemble them.
